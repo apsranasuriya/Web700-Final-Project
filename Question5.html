@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Around the World</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Common style for tables */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Style for the country table */
+        .country-table th {
+            background-color: #3498db;
+            color: black;
+        }
+
+        /* Style for links */
+        a {
+            color: black;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        /* Style for the country table */
+        .country-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .country-table th,
+        .country-table td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .country-table th {
+            background-color: #f2f2f2;
+        }
+
+        /* Style for the university table */
+        .university-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .university-table th,
+        .university-table td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .university-table th {
+            background-color: #f2f2f2;
+        }
+
+        .university-table a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .university-table a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="output">
+    </div>
+    <script>
+        fetch('country.json')
+            .then(function (response) {
+                return (response.json());
+            })
+            .then(function (jsonData) {
+                let countries = jsonData.country;
+                let output = "<h1>Select your preferred country to find universities.</h1>"
+                output += "<table class='country-table'>";
+                output += "<tr><th>Country</th><th>Capital</th><th>Unemployment</th><th>Total GDP</th></tr>";
+                countries.forEach(function (country) {
+                    output += "<tr class='country-row' data-country='" + country.name + "'>";
+                    output += "<td><a href='#' class='country-link'>" + country.name + "</a></td>";
+                    output += "<td>" + country['@capital'] + "</td>";
+                    output += "<td>" + country.unemployment + "%</td>";
+                    output += "<td>$" + country.gdp_total + " billion</td>";
+                    output += "</tr>";
+                });
+                output += "</table>";
+                document.getElementById("output").innerHTML = output;
+
+                // Add event listeners to country links
+                const links = document.querySelectorAll('.country-link');
+                links.forEach(link => {
+                    link.addEventListener('click', function (event) {
+                        event.preventDefault(); // Prevent the default link behavior
+                        const countryName = this.textContent; // Get the country name from link text
+                        fetchUniversityData(countryName);
+                    });
+                });
+
+                // Function to fetch university data
+                function fetchUniversityData(countryName) {
+                    const encodedCountryName = encodeURIComponent(countryName);
+                    const url = `http://universities.hipolabs.com/search?country=${encodedCountryName}`;
+
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Handle the university data here
+                            displayUniversityData(data);
+                        })
+                        .catch(error => console.error('Error fetching university data:', error));
+                }
+
+                // Function to display university data
+                function displayUniversityData(data) {
+                    let universityOutput = "<h2>Universities</h2>";
+                    universityOutput += "<table class='university-table'>";
+                    universityOutput += "<tr><th>Name</th><th>Country</th><th>Website</th></tr>";
+                    data.forEach(function (university) {
+                        universityOutput += "<tr>";
+                        universityOutput += "<td>" + university.name + "</td>";
+                        universityOutput += "<td>" + university.country + "</td>";
+                        universityOutput += "<td><a href='" + university.web_pages[0] + "' target='_blank'>" + university.web_pages[0] + "</a></td>";
+                        universityOutput += "</tr>";
+                    });
+                    universityOutput += "</table>";
+                    document.getElementById("output").innerHTML = universityOutput;
+                }
+            });
+    </script>
+</body>
+
+</html>

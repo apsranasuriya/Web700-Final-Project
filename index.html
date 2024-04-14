@@ -40,18 +40,103 @@
             background-color: #f2f2f2;
             padding: 20px 0;
         }
+        
+        /* Style for modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Style for answer link */
+        .answer-link {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to Web-700 Final Project</h1>
     <ul>
-        <li><a href="Question1.html">Question 1</a></li>
-        <li><a href="http://localhost:3000/alldata">Question 2</a></li>
-        <li><a href="http://localhost:3000/viewData">Question 3</a></li>
-        <li><a href="Question4.html">Question 4</a></li>
+        <li><a href="#" onclick="showQuestion('Question 1', 'Using the given country json data and your knowledge in fetching json data, Develop a JavaScript program that reads the json file and display its data in the HTML table:', 'Question1.html')">Question 1</a></li>
+        <li><a href="#" onclick="showQuestion('Question 2', 'Using the given JSON file, develop a simple NodeJS app that opens the JSON file and provides a route “/alldata” which returns all data when user navigate the “localhost:3000/alldata”.', 'http://localhost:3000/alldata')">Question 2</a></li>
+        <li><a href="#" onclick="showQuestion('Question 3', 'Show the Q2 output using template engine. Provide a new route “/viewdata” to display output in html format (possibly html table).', 'http://localhost:3000/viewData')">Question 3</a></li>
+        <li><a href="#" onclick="showQuestion('Question 4', 'Develop a sample HTML/native JS page which fetch data from your internal API that you designed in Q2. (get the idea from one of the activities that we did in class !)', 'Question4.html')">Question 4</a></li>
+        <li><a href="#" onclick="showQuestion('Question 5', 'Use your creativity, try to find other related free Rest API in order to add additional information (for each country). This will scale up the Q4 in order to provide more info when user search for a country.', 'Question5.html')">Question 5</a></li>
     </ul>
+
+    <!-- Modal for displaying question details -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p><strong id="questionTitle"></strong></p>
+            <p id="questionDescription"></p>
+            <p id="questionAnswer"></p>
+        </div>
+    </div>
+
     <footer>
-        <p>Group Members: Thanuji Dananjanie and Piyumi Ranasuriya</p>
+        <p>Group Members: Piyumi Ranasuriya and Thanuji Dananjanie</p>
     </footer>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Function to open modal and display question details
+        function showQuestion(title, description, link) {
+            var titleElement = document.getElementById("questionTitle");
+            var descriptionElement = document.getElementById("questionDescription");
+            var answerElement = document.getElementById("questionAnswer");
+
+            titleElement.textContent = title;
+            descriptionElement.textContent = description;
+            answerElement.innerHTML = '<a class="answer-link" href="' + link + '" target="_blank">Click to see output</a>';
+            modal.style.display = "block";
+        }
+
+        // Function to close modal
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
