@@ -11,9 +11,9 @@
       }
     ],
     "routes": [
-      { "src": "/alldata", "dest": "/" },
-      { "src": "/viewdata", "dest": "/" },
-      { "src": "/universities/:countryName", "dest": "/" },
+      { "src": "/alldata", "dest": "/app.js" },
+      { "src": "/viewdata", "dest": "/app.js" },
+      { "src": "/universities/:countryName", "dest": "/app.js" },
       { "src": "/(.*)", "dest": "/public/index.html" }
     ]
   }
