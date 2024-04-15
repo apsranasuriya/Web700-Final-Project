@@ -1,11 +1,16 @@
 {
-    "version":2,
-    "builds":[
-        {
-            "scr":"./app.js",
-            "use":"@vercel/web700"
-        }
+    "version": 2,
+    "builds": [
+      {
+        "src": "./app.js",
+        "use": "@vercel/node"
+      }
     ],
-    "routers":"/(.*)",
-    "dest":"/"
-}
+    "routes": [
+      { "src": "/alldata", "dest": "/public/index.html" },
+      { "src": "/viewdata", "dest": "/public/index.html" },
+      { "src": "/", "dest": "/public/index.html" }
+
+    ]
+  }
+  
