@@ -1,14 +1,20 @@
 {
     "version": 2,
     "builds": [
-      { "src": "app.js", "use": "@vercel/node" }
+      {
+        "src": "app.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "public/*.html",
+        "use": "@vercel/static"
+      }
     ],
     "routes": [
-      { "src": "/alldata", "dest": "/app.js" },
-      { "src": "/viewdata", "dest": "/app.js" },
-      { "src": "/universities/:countryName", "dest": "/app.js" },
-      { "src": "/(.+\\.html)", "dest": "$1" },
-      { "src": "/(.*)", "dest": "/index.html" }
+      { "src": "/alldata", "dest": "/" },
+      { "src": "/viewdata", "dest": "/" },
+      { "src": "/universities/:countryName", "dest": "/" },
+      { "src": "/(.*)", "dest": "/public/index.html" }
     ]
   }
   
