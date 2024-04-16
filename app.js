@@ -20,7 +20,16 @@ app.use((req, res, next) => {
 });
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
-  });
+});
+app.get('/question1', (req, res) => {
+    res.sendFile(__dirname + '/Question1.html');
+});
+app.get('/question4', (req, res) => {
+    res.sendFile(__dirname + '/Question4.html');
+});
+app.get('/question5', (req, res) => {
+    res.sendFile(__dirname + '/Question5.html');
+});
 app.get('/alldata', (req, res) => {
     fs.readFile('country.json', (err, data) => {
         if (err) {
