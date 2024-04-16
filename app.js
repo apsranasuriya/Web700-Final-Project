@@ -2,7 +2,8 @@ const express = require('express');
 const fs = require('fs');
 
 const app = express();
-const port = 3000|process.env.PORT;
+// const port = 3000|process.env.PORT;
+var HTTP_PORT = 3000|process.env.PORT;
 
 
 app.use(express.json());
@@ -18,7 +19,7 @@ app.use((req, res, next) => {
     next();
 });
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/Question1.html');
+    res.sendFile(__dirname + '/index.html');
   });
 app.get('/alldata', (req, res) => {
     fs.readFile('country.json', (err, data) => {
@@ -77,6 +78,7 @@ app.get('/universities/:countryName', (req, res) => {
         });
 });
 
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//     console.log(`Server running on http://localhost:${port}`);
+// });
+app.listen(HTTP_PORT);

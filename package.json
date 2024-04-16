@@ -2,7 +2,7 @@
   "name": "projects",
   "version": "1.0.0",
   "description": "",
-  "main": "Question2.js",
+  "main": "app.js",
   "engines": {
     "node": "20.x"
   },
