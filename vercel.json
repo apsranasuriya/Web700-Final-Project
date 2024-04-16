@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "routes": [
+      { "src": "/alldata", "dest": "/app.js" },
+      { "src": "/viewdata", "dest": "/app.js" },
+      { "src": "/universities/(.*)", "dest": "http://universities.hipolabs.com/:1" },
+      { "src": "/(.+\\.html)", "dest": "$1" },
+      { "src": "/(.+\\.json)", "dest": "$1" },
+      { "src": "/(.*)", "dest": "/index.html" }
+    ]
+  }
+  
